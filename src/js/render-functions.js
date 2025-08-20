@@ -5,13 +5,21 @@ const galleryContainer = document.querySelector('.gallery');
 let lightbox = new SimpleLightbox('.gallery a');
 
 export const createGallery = (images) => {
-  const markup = images.map(({ webformatURL, largeImageURL, tags }) => `
-    <a href="${largeImageURL}">
-      <img src="${webformatURL}" alt="${tags}" />
-    </a>
+  const markup = images.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `
+    <li class="gallery-item">
+      <a href="${largeImageURL}">
+        <img src="${webformatURL}" alt="${tags}" />
+      </a>
+      <div class="info">
+        <span>Likes: ${likes}</span>
+        <span>Views: ${views}</span>
+        <span>Comments: ${comments}</span>
+        <span>Downloads: ${downloads}</span>
+      </div>
+    </li>
   `).join('');
-
-  galleryContainer.insertAdjacentHTML('beforeend', markup);
+  
+  galleryContainer.innerHTML = markup;
   lightbox.refresh();
 };
 
@@ -20,9 +28,8 @@ export const clearGallery = () => {
 };
 
 export const showLoader = () => {
-  document.body.classList.add('loading');
+  document.getElementById('loader').classList.add('show');
 };
-
 export const hideLoader = () => {
-  document.body.classList.remove('loading');
+  document.getElementById('loader').classList.remove('show');
 };

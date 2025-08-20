@@ -1,4 +1,3 @@
-
 import { getImagesByQuery } from './js/pixabay-api';
 import { createGallery, clearGallery, showLoader, hideLoader } from './js/render-functions';
 import iziToast from 'izitoast';
@@ -9,13 +8,6 @@ const searchInput = form.elements['search-text'];
 const submitBtn = form.querySelector('button[type="submit"]');
 
 const mainEl = document.querySelector('main');
-const loaderEl = document.createElement('div');
-loaderEl.id = 'loader';
-loaderEl.innerHTML = `
-  <div class="spinner"></div>
-  <span>Loading images, please wait...</span>
-`;
-mainEl.insertBefore(loaderEl, mainEl.firstChild);
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -30,10 +22,10 @@ form.addEventListener('submit', async (event) => {
     });
     return;
   }
-    
+
   clearGallery();
   showLoader();
-    
+
   try {
     const images = await getImagesByQuery(query);
 
